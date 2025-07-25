@@ -31,37 +31,43 @@ ingredients_list = st.multiselect(
     , max_selections=5
 )
 
-st.write(ingredients_list) 
 
 if ingredients_list:
-    ingredients_string =''
-    for fruit_chosen in ingredients_list:
-        ingredients_string += fruit_chosen + ' '
+  
+  
+  
+  ingredients_string =''
+  for fruit_chosen in ingredients_list:
+    
+  
+    ingredients_string += fruit_chosen + ' '
 
-        # will get the value from searchon and tell for x value search keyword is y
-        search_on = pd_df.loc[pd_df.loc["FRUIT_NAME"] == fruit_chosen, 'SEARCH_ON'].iloc[0]
-        st.write('The search value for ', fruit_chosen, ' is ', search_on, '.')
+    # will get the value from searchon and tell for x value search keyword is y
+    search_on = pd_df.loc[pd_df.loc["FRUIT_NAME"] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+    st.write('The search value for ', fruit_chosen, ' is ', search_on, '.')
 
-        st.subheader(fruit_chosen + ' Nutrition Information')
-        smoothiefroot_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_chosen)
-        # st.text(smoothiefroot_response.json())
-        sf_df = st.dataframe(smoothiefroot_response.json(), use_container_width=True)
-        
+    st.subheader(fruit_chosen + ' Nutrition Information')
+    smoothiefroot_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_chosen)
+    # st.text(smoothiefroot_response.json())
+    sf_df = st.dataframe(smoothiefroot_response.json(), use_container_width=True)
+      
 
-    st.write(ingredients_string)
-    # now will insert this to order table
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
-            values ('""" + ingredients_string + """','""" + name_on_order +"""')"""
+  st.write(ingredients_string)
+  # now will insert this to order table
+  my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
+          values ('""" + ingredients_string + """','""" + name_on_order +"""')"""
 
-    st.write(my_insert_stmt)
+  st.write(my_insert_stmt)
 
-    # will insert submmit btn; this will avoid feeding each and 
-    # every step fruit slection to order table
-    time_to_insert = st.button("Submit Order")
+  # will insert submmit btn; this will avoid feeding each and 
+  # every step fruit slection to order table
+  time_to_insert = st.button("Submit Order")
 
-    if time_to_insert:
-        session.sql(my_insert_stmt).collect()
-        st.success(f"Your Smoothie is ordered!, {name_on_order}!", icon="✅")
+  if time_to_insert:
+    
+    
+    session.sql(my_insert_stmt).collect()
+    st.success(f"Your Smoothie is ordered!, {name_on_order}!", icon="✅")
 
 
 
