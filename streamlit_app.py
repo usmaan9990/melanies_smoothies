@@ -52,10 +52,13 @@ if ingredients_list:
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success(f"Your Smoothie is ordered!, {name_on_order}!", icon="✅")
+# ------------------------------------------------------------------------------------------------------------------------------
+# Adding daatfrom API
 
 import requests
 smoothiefroot_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(smoothiefroot_response)
+st.text(smoothiefroot_response.json())
+at_df = st.dataframe(smoothiefroot_response.json(), use_Container_width=True)
 
 
 
