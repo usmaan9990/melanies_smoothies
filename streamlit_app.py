@@ -31,7 +31,7 @@ ingredients_list = st.multiselect(
     , max_selections=5
 )
 
-#st.write(ingredients_list) # this will show what we seletc
+st.write(ingredients_list) # this will show what we seletc
 #st.text(ingredients_list) # this will change selection to list
 
 # here is an issue, if we didnt slect anything empty [] is tehre
@@ -71,8 +71,7 @@ if ingredients_list:
     if time_to_insert:
         session.sql(my_insert_stmt).collect()
         st.success(f"Your Smoothie is ordered!, {name_on_order}!", icon="✅")
-# ------------------------------------------------------------------------------------------------------------------------------
-# Adding daatfrom API
+
 
 
 
