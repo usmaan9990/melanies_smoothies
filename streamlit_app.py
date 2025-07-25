@@ -39,10 +39,11 @@ if ingredients_list:
     ingredients_string += fruit_chosen + ' '
     # will get the value from searchon and tell for x value search keyword is y
     search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON']
-    if search_on is null:
-      search_on = fruit_chosen
+    if not search_on.empty:
+      search_on = search_on.iloc[0]
     else:
-      search_on.iloc[0]
+      search_on = fruit_chosen
+      
     
     st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
 
